@@ -28,13 +28,12 @@ export default class Category extends CatalogPage {
     }
 
     onReady() {
- 
         $('#hoverImage').mouseenter(function () {
-            $('#hoverImage').attr('src', 'https://cdn11.bigcommerce.com/s-7q5o8rh4d2/products/112/images/377/special2__68887.1613244152.386.513.jpg?c=1')
+            $('#hoverImage').attr('src', 'https://cdn11.bigcommerce.com/s-7q5o8rh4d2/products/112/images/377/special2__68887.1613244152.386.513.jpg?c=1');
         });
 
         $('#hoverImage').mouseleave(function () {
-            $('#hoverImage').attr('src', 'https://cdn11.bigcommerce.com/s-7q5o8rh4d2/products/112/images/376/special1__48371.1613244081.386.513.jpg?c=1')
+            $('#hoverImage').attr('src', 'https://cdn11.bigcommerce.com/s-7q5o8rh4d2/products/112/images/376/special1__48371.1613244081.386.513.jpg?c=1');
         });
 
 
