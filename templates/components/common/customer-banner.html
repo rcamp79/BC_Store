@@ -1,0 +1,12 @@
+<div class="c_banner">
+  {{#if customer.name}}
+  <h2>Welcome {{customer.name}}</h2>
+  <p>Phone: {{customer.phone}}</p>
+  <p>Address: {{customer.shipping_address.address1}}</p>
+  <p>City: {{customer.shipping_address.city}}</p>
+  <p>State: {{customer.shipping_address.state}}</p>
+  <p>Email: {{customer.email}}</p>
+  {{else}}
+  <h2>Please create an account!</h2>
+  {{/if}}
+</div>

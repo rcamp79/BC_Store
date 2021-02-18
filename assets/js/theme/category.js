@@ -3,6 +3,7 @@ import CatalogPage from './catalog';
 import compareProducts from './global/compare-products';
 import FacetedSearch from './common/faceted-search';
 import { createTranslationDictionary } from '../theme/common/utils/translations-utils';
+import { data } from 'jquery';
 
 export default class Category extends CatalogPage {
     constructor(context) {
@@ -28,6 +29,125 @@ export default class Category extends CatalogPage {
     }
 
     onReady() {
+    //   
+
+        let cartEmpty = true;
+        
+
+        var data = JSON.stringify({
+            "line_items": [
+            {
+                "quantity": 1,
+                "product_id": 112
+            }
+            ]
+        });
+
+        
+
+        function createAdd(){
+            var xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+
+                xhr.addEventListener("readystatechange", function () {
+                if (this.readyState === this.DONE) {
+                    console.log(this.responseText);
+                }
+                });
+
+                xhr.open("POST", "http://localhost:3000/api/storefront/cart");
+                xhr.setRequestHeader("accept", "application/json");
+                xhr.setRequestHeader("content-type", "application/json");
+                xhr.setRequestHeader("x-auth-token", "e8d803uclqh3izrag8svdw9pi8nznai");
+
+                xhr.send(data);
+                
+                alert("Item Added!");
+                location.reload();
+                
+
+        }
+
+        function add(cartId){
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "http://localhost:3000/api/storefront/cart/" + cartId + "/items",
+                "method": "POST",
+                "headers": {
+                  "accept": "application/json",
+                  "content-type": "application/json",
+                  "x-auth-token": "e8d803uclqh3izrag8svdw9pi8nznai"
+                },
+                "processData": false,
+                "data": "{\"line_items\":[{\"quantity\":1,\"product_id\":112}]}"
+              }
+
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+                alert('Item added');
+                location.reload();
+                $('#specialRemoveButton').attr('display', 'inline');
+              });
+        }
+        // Add item to the cart. If cart doesnot exist, create one and add
+       $('#specialButton').on("click", function(){
+
+        fetch('/api/storefront/cart', {
+        credentials: 'include'})
+        .then(res => {
+            return res.json();
+        })
+        .then(res => {
+            console.log(res);
+            if(res.length < 1){
+                createAdd();
+              
+            }else{
+                add(res[0].id);
+            }
+
+            
+        })
+       });
+    //    Delete cart
+       $('#specialRemoveButton').on("click", function(){
+        fetch('/api/storefront/cart', {
+            credentials: 'include'})
+            .then(response => {
+                console.log(response);
+                return response.json();
+            })
+            .then(response => {
+                console.log(response);
+
+                var settings = {
+                    "async": true,
+                    "crossDomain": true,
+                    "url": "http://localhost:3000/api/storefront/cart/" + response[0].id,
+                    "method": "DELETE",
+                    "headers": {
+                      "accept": "application/json",
+                      "content-type": "application/json",
+                      "x-auth-token": "e8d803uclqh3izrag8svdw9pi8nznai"
+                    },
+                    "processData": false
+                  }
+                  
+                $.ajax(settings).done(function (response) {
+                alert('Cart Deleted');
+                location.reload();
+                });
+            })
+
+
+       });
+
+
+
+
+
+        // 
         $('#hoverImage').mouseenter(function () {
             $('#hoverImage').attr('src', 'https://cdn11.bigcommerce.com/s-7q5o8rh4d2/products/112/images/377/special2__68887.1613244152.386.513.jpg?c=1');
         });

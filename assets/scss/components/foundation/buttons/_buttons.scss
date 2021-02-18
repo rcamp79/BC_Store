@@ -13,6 +13,8 @@
             margin-left: spacing("half");
         }
     }
+
+    
 }
 
 .button[disabled] {
@@ -25,3 +27,29 @@
         fill: stencilColor("button--icon-svg-color");
     }
 }
+
+
+#specialButton {
+    background-color: stencilColor("color-textBase");
+    color: #fff;
+    margin: 2rem;
+  
+    &:hover {
+      background-color: #fff;
+      color: stencilColor("color-textBase");
+    }
+  }
+  
+  #specialRemoveButton{
+    background-color: stencilColor("color-textBase");
+    color: red;
+    margin: 2rem;
+    display: inline;
+  
+    &:hover {
+      background-color: #fff;
+      color: stencilColor("color-textBase");
+    }
+  }
+
+  
